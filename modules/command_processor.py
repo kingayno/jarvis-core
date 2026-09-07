@@ -23,13 +23,13 @@ class CommandProcessor:
             if 'hello' in command or 'hi' in command:
                 return "hello! What can I help you"
             
-            for keyword, func in self.commands.item():
+            for keyword, func in self.commands.items():
                 if keyword in command:
                     return func(command)
             
             return "I am not sure how to help with that!"
         def get_time(self, command):
-            current_time = datetime.datetime.now().strftime("%I:%M %P")
+            current_time = datetime.datetime.now().strftime("%I:%M %p")
             return f"todays time is: {current_time}"
         
         def get_date(self, command):
@@ -68,7 +68,7 @@ class CommandProcessor:
                 data = response.json()
 
                 temp = data['main']['temp']
-                desc = data['weather'][0]['discription']
+                desc = data['weather'][0]['description']
 
                 return f"the tempreture in {city} is {temp}°C with {desc}"
             except:
