@@ -69,7 +69,9 @@ class CommandProcessor:
 
                 temp = data['main']['temp']
                 desc = data['weather'][0]['description']
+                humid = data['main']['humidity']
 
-                return f"the tempreture in {city} is {temp}°C with {desc}"
+                return f"the tempreture in {city} is {temp}°C with {desc} humidity level {humid}"
             except:
                 return "could not fetch weather"
+            
