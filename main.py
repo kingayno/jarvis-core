@@ -31,7 +31,7 @@ class JARVIS:
             #listen for command
 
             command = self.speech.listen()
-            
+            print("DEBUG COMMAND:", command)
             if command:
                 #process command
                response = self.processor.process(command)
