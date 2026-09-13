@@ -48,8 +48,10 @@ class CommandProcessor:
                 webbrowser.open("https://youtube.com")
                 return "opening youtube"
             elif 'google' in command:
-                webbrowser.open("https://google,com")
+                webbrowser.open("https://google.com")
                 return "opening google"
+            elif 'music' in command:
+                webbrowser.open("https://www.spotify.com")
             return "I can open YouTube or Google"
         def get_weather(self, command):
             try:
