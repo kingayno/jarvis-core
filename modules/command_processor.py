@@ -4,16 +4,31 @@ import webbrowser
 import requests
 
 class CommandProcessor:
-        def __init__(self):
-          self.commands = {
-            "time": self.get_time,
-            "date": self.get_date,
-            "search": self.search_web,
-            "open": self.open_website,
-            "weather": self.get_weather
+     def __init__(self):
+      self.commands = {
+            "time":{
+                "keywords" : ["time", "clock"],
+                "function" : self.get_time,
+            }, 
+            "date":{
+                "keywords" : ["date", "day","day", "today"],
+                "function" : self.get_date,
+            }, 
+            "search":{
+                "keywords" : ["search", "find"],
+                "function" : self.search_web,
+            },
+              "open":{
+                "keywords" : ["open", "go to"],
+                "function" : self.open_website,
+            }, 
+            "weather":{
+                "keywords" : ["weather", "temprature", "hot", "forcast", "Air condition"],
+                "function" : self.get_weather
+            } 
         }
 
-        def process(self, command):
+     def process(self, command):
             """process user command"""
             if not command:
                 return "i didnt catch that"
@@ -23,27 +38,28 @@ class CommandProcessor:
             if 'hello' in command or 'hi' in command:
                 return "hello! What can I help you"
             
-            for keyword, func in self.commands.items():
-                if keyword in command:
-                    return func(command)
+            for intent, info in self.commands.items():
+                for words in info["keywords"]: 
+                   if words in command:
+                      return info["function"](command)
             
             return "I am not sure how to help with that!"
-        def get_time(self, command):
+     def get_time(self, command):
             current_time = datetime.datetime.now().strftime("%I:%M %p")
             return f"todays time is: {current_time}"
         
-        def get_date(self, command):
+     def get_date(self, command):
             current_date = datetime.datetime.now().strftime("%A, %B, %B, %Y")
             return f"today is {current_date}"
         
-        def search_web(self, command):
+     def search_web(self, command):
             query = command.replace("search", "").replace("for", "").strip()
             if query:
                 webbrowser.open(f"https://google.com/search?q={query}")
                 return f"serching for {query}"
             return "what would you like to search for?"
         
-        def open_website(self, command):
+     def open_website(self, command):
             if 'youtube' in command:
                 webbrowser.open("https://youtube.com")
                 return "opening youtube"
@@ -53,7 +69,7 @@ class CommandProcessor:
             elif 'music' in command:
                 webbrowser.open("https://www.spotify.com")
             return "I can open YouTube or Google"
-        def get_weather(self, command):
+     def get_weather(self, command):
             try:
                 from config import Config
                 city = "London"
